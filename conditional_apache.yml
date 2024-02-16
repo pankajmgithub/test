@@ -1,0 +1,16 @@
+---
+- name: conditional example playbook.
+  hosts: all
+  become: yes
+  tasks:
+    - name: install apache if os is rhel
+      yum:
+       name: httpd
+       state: installed
+      when: ansible_distribution == 'Rocky'
+    - name: install apache if os is Ubuntu
+      apt:
+       name: apache2
+       state: present
+      when: ansible_distribution == 'Ubuntu'
+...
